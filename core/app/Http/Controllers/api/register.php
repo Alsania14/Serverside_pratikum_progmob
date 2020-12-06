@@ -103,5 +103,27 @@ class register extends Controller
         $respon = \json_encode($respon);
         return $respon;
     }
+
+    public function tokenFeeder(Request $request){
+        // RESET TOKEN
+            $user_current_token = User::where('token',$request->token)->first();
+
+
+                $user_current_token->token = null;
+                $user_current_token->save();
+
+        // AKHIR
+
+        $user = User::find($request->user_id);
+
+        if($user != null){
+            $user->token = $request->token;
+            $user->save();
+            return \response()->json(["status" => 200],200);
+        }
+
+        return \response()->json(["status" => 403],200);
+
+    }
     
 }

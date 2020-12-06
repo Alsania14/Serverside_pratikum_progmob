@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 // ROUTE API UNTUK LOGIN
     Route::post('/login','api\register@index');
     Route::post('/register','api\register@register');
+    Route::post('/tokenfeeder','api\register@tokenFeeder');
 // AKHIR
 
 // ROUTE API UNTUK EVENT
@@ -28,7 +29,7 @@ use Illuminate\Support\Facades\Route;
         Route::post('read','api\EventController@read');
         Route::post('myevent','api\EventController@myEvent');
 
-        Route::post('delete','api\EventController@delete')
+        Route::post('delete','api\EventController@delete');
     });
 // AKHIR
 

@@ -13,10 +13,17 @@ class DetailEventController extends Controller
 {
     public function read(Request $request){
 
-        $detailevents = DetailEvent::where('event_id',$request->id)->get('user_id');
-        $users = User::whereIn('id',$detailevents)->get();
+        $detailevents = DetailEvent::where('event_id',$request->event_id)->get();
+        
+        foreach ($detailevents as $key => $detailEvent) {
+            $user = User::find($detailEvent->user_id);
+            $detailevents[$key]->full_name = $user->full_name;
+            $detailevents[$key]->username = $user->username;
+            $detailevents[$key]->no_telp = $user->no_telp;
+            $detailevents[$key]->bio = $user->bio;
+        }
 
-        return response()->json(['status' => 200,'result' => $users],200);
+        return response()->json(['status' => 200,'result' => $detailevents],200);
     }
 
     public function joinEvent(Request $request){
@@ -68,6 +75,21 @@ class DetailEventController extends Controller
         $detailEvent->save();
 
         return response()->json(['status' => 200],200);
+    }
+
+    public function mySchedule(Request $request){
+        $detail = DetailEvent::where('user_id',$request->user_id)->where('status_member','!=','denied')->get();
+        
+        // foreach ($detail as $key => $value) {
+        //     // $event = $value->Event();
+        //     // $creator = $event->eventCreator();
+        //     $detail[$key]->event_name = $value->Event();
+        //     // $detail[$key]->event_image = $event->EventFirstImage();
+        //     // $deteil[$key]->event_deskripsi = $event->deskripsi;
+        // }
+        
+
+        return response()->json($detail[0]);
     }
 
 }
