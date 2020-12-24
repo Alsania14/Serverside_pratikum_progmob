@@ -19,6 +19,8 @@ use Illuminate\Support\Facades\Route;
     Route::post('/login','api\register@index');
     Route::post('/register','api\register@register');
     Route::post('/tokenfeeder','api\register@tokenFeeder');
+
+    Route::post('/update','api\register@updateUser');
 // AKHIR
 
 // ROUTE API UNTUK EVENT
@@ -39,5 +41,8 @@ use Illuminate\Support\Facades\Route;
         Route::post('cancel','api\DetailEventController@cancelJoin');
         Route::post('accept','api\DetailEventController@accept');
         Route::post('denied','api\DetailEventController@denied');
+
+        Route::post('semuaanggotaevent','api\DetailEventController@readSemuaAnggotaEvent');
+        Route::post('eventcreatorsemuaanggota','api\DetailEventController@eventCreatorReadAnggota');
     });
 // AKHIR

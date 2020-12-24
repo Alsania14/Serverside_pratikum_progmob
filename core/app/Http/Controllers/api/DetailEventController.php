@@ -92,4 +92,23 @@ class DetailEventController extends Controller
         return response()->json($detail[0]);
     }
 
+    public function readSemuaAnggotaEvent(Request $request){
+        $events = DetailEvent::where("event_id",$request->event_id)->where("status_member","accept")->get();
+        $anggota = [];
+        foreach ($events as $index => $event) {
+            $anggota[] = $event->User()->first();
+        }
+
+        return response()->json($anggota);
+    }
+
+    public function eventCreatorReadAnggota(Request $request){
+        $events = DetailEvent::where("event_id",$request->event_id)->where("status_member","accept")->get();
+        $anggota = [];
+        foreach ($events as $index => $event) {
+            $anggota[] = $event->User()->first();
+        }
+
+        return response()->json($anggota);
+    }
 }

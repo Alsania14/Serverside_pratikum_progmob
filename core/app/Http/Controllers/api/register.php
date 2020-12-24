@@ -125,5 +125,20 @@ class register extends Controller
         return \response()->json(["status" => 403],200);
 
     }
-    
+
+    public function updateUser(Request $request){
+        $user = User::where('id',$request->id)->first();
+
+        if($user == null){
+            return response()->json(['status' => 403]);
+        }
+
+        $user->full_name = $request->full_name;
+        $user->username = $request->username;
+        $user->no_telp = $request->no_telp;
+        $user->bio = $request->bio;
+        $user->save();
+
+        return response()->json(['status' => 200,'message' => 'sukses update user','error' => 'tidak ada']);
+    }
 }

@@ -11,4 +11,8 @@ class DetailEvent extends Model
     public function Event(){
         return $this->belongsTo('App\Event', 'event_id', 'id');
     }
+
+    public function User(){
+        return $this->belongsTo('App\User', 'user_id', 'id');
+    }
 }
